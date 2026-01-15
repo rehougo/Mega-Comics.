@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - ComicVerse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            color: #fff;
+            line-height: 1.6;
+            background-image: linear-gradient(to bottom, #0a0a1a, #1a1a2e, #16213e);
+        }
+        
+        header {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid #ff4500;
+        }
+        
+        .logo {
+            color: #ff4500;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .logo span {
+            color: #4cc9f0;
+        }
+        
+        #menu {
+            display: none;
+        }
+        
+        .menu-icono {
+            display: none;
+            width: 30px;
+            cursor: pointer;
+        }
+        
+        .navbar ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .navbar ul li {
+            position: relative;
+            margin-left: 1.5rem;
+        }
+        
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar ul li a:hover {
+            background-color: #ff4500;
+            color: #fff;
+        }
+        
+        .page-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .page-hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        
+        .page-hero-content p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #4cc9f0;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb span {
+            color: #ff4500;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ff4500;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: #4cc9f0;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-btn {
+            padding: 0.8rem 1.8rem;
+            background-color: #1a1a2e;
+            color: #fff;
+            border: 2px solid #4cc9f0;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: #4cc9f0;
+            color: #0a0a1a;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .product-card {
+            background-color: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-top: 4px solid #ff4500;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 69, 0, 0.2);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #ff4500;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        
+        .product-author {
+            color: #4cc9f0;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            color: #ff4500;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .product-category {
+            display: inline-block;
+            background-color: #2d2d4d;
+            color: #e0e0e0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-description {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .btn-details, .btn-buy {
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            flex: 1;
+        }
+        
+        .btn-details {
+            background-color: #4cc9f0;
+            color: #0a0a1a;
+        }
+        
+        .btn-details:hover {
+            background-color: #3ab7d8;
+        }
+        
+        .btn-buy {
+            background-color: #ff4500;
+            color: white;
+        }
+        
+        .btn-buy:hover {
+            background-color: #ff5722;
+        }
+        
+        .accessories-section {
+            margin-top: 5rem;
+        }
+        
+        .accessories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .accessory-card {
+            background-color: #1a1a2e;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 4px solid #9d4edd;
+        }
+        
+        .accessory-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .accessory-icon {
+            font-size: 3rem;
+            color: #9d4edd;
+            margin-bottom: 1rem;
+        }
+        
+        .accessory-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .accessory-desc {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            background-color: #0a0a1a;
+            padding: 3rem 2rem 1.5rem;
+            border-top: 3px solid #ff4500;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff4500;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #e0e0e0;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: #ff4500;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2d2d4d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: #ff4500;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2d2d4d;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            .menu-icono {
+                display: block;
+            }
+            
+            #menu:checked ~ .navbar ul {
+                display: flex;
+            }
+            
+            .navbar ul li {
+                margin: 0;
+                width: 100%;
+            }
+            
+            .navbar ul li a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #2d2d4d;
+            }
+            
+            .page-hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"><i class="fas fa-book-open"></i>Mega-<span>Comics</span></a>
+        
+        <input type="checkbox" id="menu">
+        <label for="menu"><img class="menu-icono" src="https://cdn-icons-png.flaticon.com/512/2976/2976215.png" alt="Menú"></label>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="mision.html">Mision</a></li>
+                <li><a href="vision.html">Vision</a></li>
+                <li><a href="valores.html">Valores</a></li>
+                <li><a href="productos.html">Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-hero">
+        <div class="page-hero-content">
+            <h1>Nuestros Productos</h1>
+            <p>Explora nuestra extensa colección de cómics, manga y artículos coleccionables</p>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        <div class="container">
+           
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="categories">
+            <button class="category-btn active" data-category="all">Todos</button>
+            <button class="category-btn" data-category="marvel">Marvel</button>
+            <button class="category-btn" data-category="dc">DC Comics</button>
+            <button class="category-btn" data-category="manga">Manga</button>
+            <button class="category-btn" data-category="independientes">Independientes</button>
+            <button class="category-btn" data-category="coleccionables">Artículos Coleccionables</button>
+        </div>
+
+        <h2 class="section-title">Cómics Destacados</h2>
+        
+        <div class="products-grid">
+            <!-- Producto 1 -->
+            <div class="product-card" data-category="marvel">
+                <div class="product-badge">RARO</div>
+                <img src="amazing.jpg" alt="The Amazing Spider-Man" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">The Amazing Spider-Man #300</h3>
+                    <p class="product-author">Por Todd McFarlane</p>
+                    <span class="product-category">Marvel</span>
+                    <p class="product-price">$1,250.00 USD</p>
+                    <p class="product-description">Primera aparición de Venom en un cómic. Estado Near Mint (9.4). Certificado por CGC.</p>
+                    <div class="product-actions">
+                        <button class="btn-details">Ver Detalles</button>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 2 -->
+            <div class="product-card" data-category="dc">
+                <div class="product-badge">EDICIÓN ESPECIAL</div>
+                <img src="Batman.jpg" alt="Batman" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Batman: The Killing Joke</h3>
+                    <p class="product-author">Por Alan Moore & Brian Bolland</p>
+                    <span class="product-category">DC Comics</span>
+                    <p class="product-price">$350.00 USD</p>
+                    <p class="product-description">Edición especial con portada alternativa. Estado Very Fine (8.5). Incluye certificado de autenticidad.</p>
+                    <div class="product-actions">
+                        <button class="btn-details">Ver Detalles</button>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 3 -->
+            <div class="product-card" data-category="manga">
+                <div class="product-badge">PRIMERA EDICIÓN</div>
+                <img src="One Piece Vol. 1.jpg" alt="One Piece" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">One Piece Vol. 1</h3>
+                    <p class="product-author">Por Eiichiro Oda</p>
+                    <span class="product-category">Manga</span>
+                    <p class="product-price">$180.00 USD</p>
+                    <p class="product-description">Primera edición japonesa de 1997. Estado Fine (7.0). Incluye sobre protector.</p>
+                    <div class="product-actions">
+                        <button class="btn-details">Ver Detalles</button>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 4 -->
+            <div class="product-card" data-category="marvel">
+                <div class="product-badge">PORTADA ESPECIAL</div>
+                <img src="x-men.jpg" alt="X-Men" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">X-Men #1 (1991)</h3>
+                    <p class="product-author">Por Jim Lee & Chris Claremont</p>
+                    <span class="product-category">Marvel</span>
+                    <p class="product-price">$420.00 USD</p>
+                    <p class="product-description">Portada gatefold de Jim Lee. Estado Near Mint (9.2). Certificado por CBCS.</p>
+                    <div class="product-actions">
+                        <button class="btn-details">Ver Detalles</button>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 5 -->
+            <div class="product-card" data-category="independientes">
+                <div class="product-badge">FIRMADO</div>
+                <img src="walking.jpg" alt="The Walking Dead" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">The Walking Dead #1</h3>
+                    <p class="product-author">Por Robert Kirkman</p>
+                    <span class="product-category">Independientes</span>
+                    <p class="product-price">$2,800.00 USD</p>
+                    <p class="product-description">Firmado por Robert Kirkman y Tony Moore. Estado Very Fine (8.0). Certificado CGC Signature Series.</p>
+                    <div class="product-actions">
+                        <button class="btn-details">Ver Detalles</button>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Producto 6 -->
+            <div class="product-card" data-category="manga">
+                <img src="dragon.jpg" alt="Dragon Ball" class="product-img">
+                <div class="product-info">
+                    <h3 class="product-title">Dragon Ball Vol. 1</h3>
+                    <p class="product-author">Por Akira Toriyama</p>
+                    <span class="product-category">Manga</span>
+                    <p class="product-price">$95.00 USD</p>
+                    <p class="product-description">Primera edición española de 1995. Estado Very Good (6.5). Incluye sobre protector.</p>
+                    <div class="product-actions">
+                        <button class="btn-details">Ver Detalles</button>
+                        <button class="btn-buy">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="accessories-section">
+            <h2 class="section-title">Artículos y Accesorios</h2>
+            
+            <div class="accessories-grid">
+                <div class="accessory-card">
+                    <div class="accessory-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3 class="accessory-title">Sobres Protectores</h3>
+                    <p class="accessory-desc">Sobres de polipropileno de diferentes tamaños para proteger tus cómics de polvo, humedad y deterioro.</p>
+                </div>
+                
+                <div class="accessory-card">
+                    <div class="accessory-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="accessory-title">Cartones de Apoyo</h3>
+                    <p class="accessory-desc">Cartones rígidos de archivo para mantener la forma de tus cómics y prevenir dobleces.</p>
+                </div>
+                
+                <div class="accessory-card">
+                    <div class="accessory-icon">
+                        <i class="fas fa-archive"></i>
+                    </div>
+                    <h3 class="accessory-title">Cajas de Almacenamiento</h3>
+                    <p class="accessory-desc">Cajas especiales para almacenar cómics, diseñadas para conservación a largo plazo.</p>
+                </div>
+                
+                <div class="accessory-card">
+                    <div class="accessory-icon">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h3 class="accessory-title">Guantes de Algodón</h3>
+                    <p class="accessory-desc">Guantes para manipular cómics sin transferir aceites ni suciedad de las manos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Mega-Comics</h3>
+                    <p>Tu destino confiable para comprar, vender y valorar cómics y manga. Conectamos coleccionistas desde 2023.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                 
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Cd. Margaritas M1 L1 barrio San/ Pedro, Chimalhuacán. </p>                    </p>
+                    <p><i class="fas fa-phone"></i> +52 5542442541</p>
+                    <p><i class="fas fa-envelope"></i> megacpmics@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lunes a Viernes: 10am - 7pm</p>
+                </div>
+            </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ComicVerse. Todos los derechos reservados. | Diseño y Desarrollo Web</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
+            const menuCheckbox = document.getElementById('menu');
+            const menuItems = document.querySelectorAll('.navbar ul li a');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if(window.innerWidth <= 768) {
+                        menuCheckbox.checked = false;
+                    }
+                });
+            });
+            
+            // Filtro de categorías
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const productCards = document.querySelectorAll('.product-card');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remover clase active de todos los botones
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Mostrar/ocultar productos según categoría
+                    productCards.forEach(card => {
+                        if(category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Botones de compra y detalles
+            document.querySelectorAll('.btn-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+                    alert(`Detalles de: ${productTitle}\n\nPróximamente podrás ver todos los detalles de este producto.`);
+                });
+            });
+            
+            document.querySelectorAll('.btn-buy').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+                    const productPrice = this.closest('.product-card').querySelector('.product-price').textContent;
+                    alert(`Has agregado al carrito: ${productTitle}\nPrecio: ${productPrice}\n\nPróximamente podrás completar tu compra.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

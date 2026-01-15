@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valores - ComicVerse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            color: #fff;
+            line-height: 1.6;
+            background-image: linear-gradient(to bottom, #0a0a1a, #1a1a2e, #16213e);
+        }
+        
+        header {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid #ff4500;
+        }
+        
+        .logo {
+            color: #ff4500;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .logo span {
+            color: #4cc9f0;
+        }
+        
+        #menu {
+            display: none;
+        }
+        
+        .menu-icono {
+            display: none;
+            width: 30px;
+            cursor: pointer;
+        }
+        
+        .navbar ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .navbar ul li {
+            position: relative;
+            margin-left: 1.5rem;
+        }
+        
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar ul li a:hover {
+            background-color: #ff4500;
+            color: #fff;
+        }
+        
+        .page-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .page-hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        
+        .page-hero-content p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #4cc9f0;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb span {
+            color: #ff4500;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ff4500;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: #4cc9f0;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .values-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+        
+        .values-intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .value-card {
+            background-color: #1a1a2e;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border-top: 5px solid;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .value-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 69, 0, 0.1);
+        }
+        
+        .passion-icon {
+            color: #ff4500;
+            border: 3px solid #ff4500;
+        }
+        
+        .integrity-icon {
+            color: #4cc9f0;
+            border: 3px solid #4cc9f0;
+        }
+        
+        .community-icon {
+            color: #9d4edd;
+            border: 3px solid #9d4edd;
+        }
+        
+        .excellence-icon {
+            color: #ffd60a;
+            border: 3px solid #ffd60a;
+        }
+        
+        .preservation-icon {
+            color: #4ad66d;
+            border: 3px solid #4ad66d;
+        }
+        
+        .innovation-icon {
+            color: #ff6d00;
+            border: 3px solid #ff6d00;
+        }
+        
+        .value-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+        
+        .value-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            flex-grow: 1;
+        }
+        
+        .values-application {
+            background-color: #1a1a2e;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .application-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .application-item {
+            background-color: #0f0f23;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid #ff4500;
+        }
+        
+        .application-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .application-desc {
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+        
+        footer {
+            background-color: #0a0a1a;
+            padding: 3rem 2rem 1.5rem;
+            border-top: 3px solid #ff4500;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff4500;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #e0e0e0;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: #ff4500;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2d2d4d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: #ff4500;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2d2d4d;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            .menu-icono {
+                display: block;
+            }
+            
+            #menu:checked ~ .navbar ul {
+                display: flex;
+            }
+            
+            .navbar ul li {
+                margin: 0;
+                width: 100%;
+            }
+            
+            .navbar ul li a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #2d2d4d;
+            }
+            
+            .page-hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .value-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        
+        
+        <input type="checkbox" id="menu">
+        <label for="menu"><img class="menu-icono" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTglg9tMNpHT045MfaCOUUvQDZlXbb5jvrBLA&s" alt="Menú"></label>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="mision.html">Misión</a></li>
+                <li><a href="vision.html">Visión</a></li>
+                <li><a href="valores.html">Valores</a></li>
+                <li><a href="productos.html">Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-hero">
+        <div class="page-hero-content">
+            <h1>Nuestros Valores</h1>
+            <p>Los principios que guían cada decisión y acción en Mega-Comics</p>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        <div class="container">
+            
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="values-intro">
+            <p>Los valores de Mega-Comics son el ADN de nuestra organización. No son solo palabras en una página, sino principios vivos que se manifiestan en cada interacción con nuestros clientes, en cada transacción que facilitamos y en cada decisión que tomamos como equipo.</p>
+        </div>
+
+        <h2 class="section-title">Nuestros Valores Fundamentales</h2>
+        
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon passion-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="value-title">Pasión por el Cómic</h3>
+                <p class="value-desc">Amamos cada historieta como una obra de arte única. Nuestro entusiasmo por el medio nos impulsa a conectar a las personas con las historias que aman y a preservar el legado cultural que representan los cómics.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon integrity-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="value-title">Integridad</h3>
+                <p class="value-desc">Actuamos con honestidad y transparencia en cada transacción. Garantizamos la autenticidad de cada cómic y proporcionamos valuaciones justas y basadas en criterios objetivos y expertos.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon community-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="value-title">Comunidad</h3>
+                <p class="value-desc">Creemos en el poder de las conexiones humanas. Fomentamos una comunidad inclusiva donde coleccionistas, lectores y creadores puedan compartir conocimientos, experiencias y su amor por el medio.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon excellence-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h3 class="value-title">Excelencia</h3>
+                <p class="value-desc">Buscamos la excelencia en cada aspecto de nuestro servicio. Desde la atención al cliente hasta la preservación de los cómics, nos esforzamos por superar expectativas y establecer nuevos estándares de calidad.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon preservation-icon">
+                    <i class="fas fa-archive"></i>
+                </div>
+                <h3 class="value-title">Preservación</h3>
+                <p class="value-desc">Nos comprometemos con la conservación del patrimonio cultural que representan los cómics. Educamos sobre técnicas de preservación y promovemos prácticas que aseguren la longevidad de estas obras.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon innovation-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="value-title">Innovación</h3>
+                <p class="value-desc">Abrazamos la tecnología y las nuevas ideas para mejorar constantemente. Desarrollamos soluciones creativas para los desafíos del coleccionismo y facilitamos el acceso al mundo del cómic.</p>
+            </div>
+        </div>
+        
+        <div class="values-application">
+            <h2 class="section-title" style="color: #4cc9f0;">Aplicación en la Práctica</h2>
+            
+            <div class="application-grid">
+                <div class="application-item">
+                    <h4 class="application-title">En el Servicio al Cliente</h4>
+                    <p class="application-desc">Cada consulta es atendida con paciencia y expertise. Educamos a nuestros clientes sobre el valor y cuidado de sus colecciones, aplicando nuestros valores de excelencia y comunidad.</p>
+                </div>
+                
+                <div class="application-item">
+                    <h4 class="application-title">En las Transacciones</h4>
+                    <p class="application-desc">Cada cómic es verificado por expertos certificados. Proporcionamos documentación detallada sobre autenticidad y estado, reflejando nuestra integridad y compromiso con la transparencia.</p>
+                </div>
+                
+                <div class="application-item">
+                    <h4 class="application-title">En la Comunidad</h4>
+                    <p class="application-desc">Organizamos eventos, talleres y charlas que reúnen a la comunidad. Compartimos conocimiento sobre preservación, historia del cómic y tendencias del mercado, viviendo nuestro valor de pasión.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Mega-Comics</h3>
+                    <p>Tu destino confiable para comprar, vender y valorar cómics y manga. Conectamos coleccionistas desde 2023.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                  
+                </div>
+                
+                 
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Cd. Margaritas M1 L1 barrio San/ Pedro, Chimalhuacán. </p>                    </p>
+                    <p><i class="fas fa-phone"></i> +52 5542442541</p>
+                    <p><i class="fas fa-envelope"></i> megacpmics@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lunes a Viernes: 10am - 7pm</p>
+                </div>
+            </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Mega-Comics. Todos los derechos reservados. | Diseño y Desarrollo Web</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
+            const menuCheckbox = document.getElementById('menu');
+            const menuItems = document.querySelectorAll('.navbar ul li a');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if(window.innerWidth <= 768) {
+                        menuCheckbox.checked = false;
+                    }
+                });
+            });
+            
+            // Animación para las tarjetas de valores
+            const valueCards = document.querySelectorAll('.value-card');
+            valueCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

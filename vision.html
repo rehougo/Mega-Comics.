@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visión - ComicVerse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            color: #fff;
+            line-height: 1.6;
+            background-image: linear-gradient(to bottom, #0a0a1a, #1a1a2e, #16213e);
+        }
+        
+        header {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid #ff4500;
+        }
+        
+        .logo {
+            color: #ff4500;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .logo span {
+            color: #4cc9f0;
+        }
+        
+        #menu {
+            display: none;
+        }
+        
+        .menu-icono {
+            display: none;
+            width: 30px;
+            cursor: pointer;
+        }
+        
+        .navbar ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .navbar ul li {
+            position: relative;
+            margin-left: 1.5rem;
+        }
+        
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar ul li a:hover {
+            background-color: #ff4500;
+            color: #fff;
+        }
+        
+        .page-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .page-hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        
+        .page-hero-content p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: #4cc9f0;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb span {
+            color: #ff4500;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ff4500;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: #4cc9f0;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .vision-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+        
+        .vision-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #4cc9f0;
+        }
+        
+        .vision-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .vision-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .vision-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .vision-timeline {
+            background-color: #1a1a2e;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: #4cc9f0;
+        }
+        
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+        
+        .timeline-content {
+            background-color: #0f0f23;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid #ff4500;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            border-left: none;
+            border-right: 5px solid #ff4500;
+        }
+        
+        .timeline-year {
+            font-size: 1.2rem;
+            color: #ff4500;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #fff;
+        }
+        
+        .timeline-desc {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+        
+        .timeline-content:before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #4cc9f0;
+            border-radius: 50%;
+            top: 20px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content:before {
+            right: -52px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content:before {
+            left: -52px;
+        }
+        
+        footer {
+            background-color: #0a0a1a;
+            padding: 3rem 2rem 1.5rem;
+            border-top: 3px solid #ff4500;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff4500;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #e0e0e0;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: #ff4500;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2d2d4d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: #ff4500;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2d2d4d;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .vision-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 60px;
+            }
+            
+            .timeline-content:before {
+                left: 20px !important;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content {
+                border-right: none;
+                border-left: 5px solid #ff4500;
+            }
+            
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            .menu-icono {
+                display: block;
+            }
+            
+            #menu:checked ~ .navbar ul {
+                display: flex;
+            }
+            
+            .navbar ul li {
+                margin: 0;
+                width: 100%;
+            }
+            
+            .navbar ul li a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #2d2d4d;
+            }
+            
+            .page-hero-content h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"><i class="fas fa-book-open"></i>Mega-<span>Comics</span></a>
+        
+        <input type="checkbox" id="menu">
+        <label for="menu"><img class="menu-icono" src="https://cdn-icons-png.flaticon.com/512/2976/2976215.png" alt="Menú"></label>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="mision.html">Misión</a></li>
+                <li><a href="vision.html">Visión</a></li>
+                <li><a href="valores.html">Valores</a></li>
+                <li><a href="productos.html">Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-hero">
+        <div class="page-hero-content">
+            <h1>Nuestra Visión</h1>
+            <p>El futuro que construimos día a dia en Mega-Comics</p>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        <div class="container">
+           
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="vision-content">
+            <div class="vision-text">
+                <h3>Redefiniendo el Mercado del Cómic en Latinoamérica</h3>
+                <p>Visualizamos un futuro donde Mega-Comics sea el referente indiscutible en el mercado de cómics y manga en Latinoamérica, reconocido no solo por la amplitud y calidad de nuestro catálogo, sino por nuestra contribución a la preservación y valoración del medio.</p>
+                <p>Nos proyectamos como el puente esencial entre coleccionistas, creadores y lectores, facilitando no solo transacciones comerciales, sino también el intercambio cultural y el desarrollo de una comunidad apasionada y educada en el arte secuencial.</p>
+                <p>Creemos en un futuro donde cada cómic, sin importar su antigüedad o rareza, pueda encontrar el hogar perfecto, donde sea apreciado y preservado para las generaciones venideras.</p>
+            </div>
+            <div class="vision-image">
+                <img src="futuro.jpg" alt="Futuro de los cómics">
+            </div>
+        </div>
+
+        <h2 class="section-title">Hoja de Ruta Estratégica</h2>
+        
+        <div class="vision-timeline">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023-2024</div>
+                        <h4 class="timeline-title">Expansión Regional</h4>
+                        <p class="timeline-desc">Consolidar presencia en 3 países adicionales de Latinoamérica, implementando centros de verificación física y digitalizando el 60% de nuestro catálogo.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025-2026</div>
+                        <h4 class="timeline-title">Tecnología y Comunidad</h4>
+                        <p class="timeline-desc">Lanzar plataforma de realidad aumentada para visualización de cómics, establecer 5 centros comunitarios físicos y alcanzar 100,000 miembros activos.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2027-2028</div>
+                        <h4 class="timeline-title">Liderazgo y Educación</h4>
+                        <p class="timeline-desc">Convertirnos en el principal referente educativo sobre cómics en la región, con programas certificados de valuación y preservación, y establecer el primer museo digital del cómic latinoamericano.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2029-2030</div>
+                        <h4 class="timeline-title">Innovación Global</h4>
+                        <p class="timeline-desc">Implementar blockchain para certificación de autenticidad, expandirnos a Europa y Asia, y establecer estándares globales para la valuación y comercio de cómics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Mega-Comics</h3>
+                    <p>Tu destino confiable para comprar, vender y valorar cómics y manga. Conectamos coleccionistas desde 2023.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+               
+                 
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Cd. Margaritas M1 L1 barrio San/ Pedro, Chimalhuacán. </p>                    </p>
+                    <p><i class="fas fa-phone"></i> +52 5542442541</p>
+                    <p><i class="fas fa-envelope"></i> megacpmics@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lunes a Viernes: 10am - 7pm</p>
+                </div>
+            </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ComicVerse. Todos los derechos reservados. | Diseño y Desarrollo Web</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
+            const menuCheckbox = document.getElementById('menu');
+            const menuItems = document.querySelectorAll('.navbar ul li a');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if(window.innerWidth <= 768) {
+                        menuCheckbox.checked = false;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

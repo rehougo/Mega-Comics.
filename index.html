@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega-Comics - Compra y Venta de Cómics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos principales para la página de cómics */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            color: #fff;
+            line-height: 1.6;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTglg9tMNpHT045MfaCOUUvQDZlXbb5jvrBLA&s');
+            background-size: cover;
+        }
+        
+        /* Header y navegación */
+        header {
+            background-color: #1a1a2e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid #ff4500;
+        }
+        
+        .logo {
+            color: #ff4500;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .logo span {
+            color: #4cc9f0;
+        }
+        
+        #menu {
+            display: none;
+        }
+        
+        .menu-icono {
+            display: none;
+            width: 30px;
+            cursor: pointer;
+        }
+        
+        .navbar ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .navbar ul li {
+            position: relative;
+            margin-left: 1.5rem;
+        }
+        
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar ul li a:hover {
+            background-color: #ff4500;
+            color: #fff;
+        }
+        
+        .navbar ul li a .fa-chevron-down {
+            margin-left: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .navbar ul li ul {
+            display: none;
+            position: absolute;
+            background-color: #1a1a2e;
+            min-width: 200px;
+            top: 100%;
+            left: 0;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .navbar ul li:hover ul {
+            display: block;
+        }
+        
+        .navbar ul li ul li {
+            margin: 0;
+            width: 100%;
+        }
+        
+        .navbar ul li ul li a {
+            padding: 0.8rem 1rem;
+            display: block;
+            border-bottom: 1px solid #2d2d4d;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar ul li ul li a:hover {
+            background-color: #ff4500;
+            padding-left: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url(' https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTglg9tMNpHT045MfaCOUUvQDZlXbb5jvrBLA&s');
+            background-size: cover;
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        
+        .hero h1 span {
+            color: #ff4500;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background-color: #ff4500;
+            color: white;
+            border: 2px solid #ff4500;
+        }
+        
+        .btn-primary:hover {
+            background-color: #ff5722;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #4cc9f0;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4cc9f0;
+            color: #0a0a1a;
+            transform: translateY(-3px);
+        }
+        
+        /* Secciones */
+        .section {
+            padding: 5rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ff4500;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: #4cc9f0;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Sección de cómics destacados */
+        .comics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .comic-card {
+            background-color: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-top: 4px solid #ff4500;
+        }
+        
+        .comic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 69, 0, 0.2);
+        }
+        
+        .comic-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        
+        .comic-info {
+            padding: 1.5rem;
+        }
+        
+        .comic-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        
+        .comic-author {
+            color: #4cc9f0;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .comic-price {
+            color: #ff4500;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .comic-category {
+            display: inline-block;
+            background-color: #2d2d4d;
+            color: #e0e0e0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1.2rem;
+            background-color: #4cc9f0;
+            color: #0a0a1a;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-small:hover {
+            background-color: #3ab7d8;
+        }
+        
+        /* Sección Misión, Visión y Valores */
+        .mv-v-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .mv-v-card {
+            background-color: #1a1a2e;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border-top: 5px solid;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mision-card {
+            border-color: #ff4500;
+        }
+        
+        .vision-card {
+            border-color: #4cc9f0;
+        }
+        
+        .valores-card {
+            border-color: #9d4edd;
+        }
+        
+        .mv-v-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mv-v-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mision-icon {
+            color: #ff4500;
+        }
+        
+        .vision-icon {
+            color: #4cc9f0;
+        }
+        
+        .valores-icon {
+            color: #9d4edd;
+        }
+        
+        .mv-v-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+        
+        .mv-v-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            flex-grow: 1;
+        }
+        
+        /* Lista de valores */
+        .valores-list {
+            list-style: none;
+            text-align: left;
+            margin-top: 1rem;
+        }
+        
+        .valores-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            color: #e0e0e0;
+        }
+        
+        .valores-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #9d4edd;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Sección sobre nosotros */
+        .about {
+            background-color: #1a1a2e;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ff4500;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0a0a1a;
+            padding: 3rem 2rem 1.5rem;
+            border-top: 3px solid #ff4500;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff4500;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #e0e0e0;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: #ff4500;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2d2d4d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: #ff4500;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2d2d4d;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+            
+            .menu-icono {
+                display: block;
+            }
+            
+            #menu:checked ~ .navbar ul {
+                display: flex;
+            }
+            
+            .navbar ul li {
+                margin: 0;
+                width: 100%;
+            }
+            
+            .navbar ul li a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #2d2d4d;
+            }
+            
+            .navbar ul li ul {
+                position: static;
+                display: none;
+                width: 100%;
+                box-shadow: none;
+            }
+            
+            .navbar ul li:hover ul {
+                display: none;
+            }
+            
+            .navbar ul li a:hover + ul,
+            .navbar ul li ul:hover {
+                display: block !important;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mv-v-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"><i class="fas fa-book-open"></i>Mega-<span>Comics</span></a>
+        
+        <input type="checkbox" id="menu">
+        <label for="menu"><img class="menu-icono" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTglg9tMNpHT045MfaCOUUvQDZlXbb5jvrBLA&s'" alt="Menú"></label>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                
+                <li><a href="mision.html">Mision <i class="fas fa-chevron-down"></i></a>
+                    <ul>
+                      
+                    </ul>
+                </li>
+                
+                <li><a href="vision.html">Vision <i class="fas fa-chevron-down"></i></a>
+                    <ul>
+                        
+                    </ul>
+                </li>
+                
+                <li><a href="valores.html">Valores <i class="fas fa-chevron-down"></i></a>
+                    <ul>
+                        
+                    </ul>
+                </li>
+                
+                <li><a href="productos.html">Productos <i class="fas fa-chevron-down"></i></a>
+                    <ul>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>El Universo de los <span>Cómics</span> a Tu Alcance</h1>
+            <p>Encuentra, compra y vende los cómics más raros y coleccionables. Desde clásicos de la Edad de Oro hasta los últimos lanzamientos de manga y cómics independientes.</p>
+            <div class="hero-buttons">
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="destacados">
+        <div class="container">
+            <h2 class="section-title">Cómics Destacados</h2>
+            <div class="comics-grid">
+                <!-- Comic 1 -->
+                <div class="comic-card">
+                    <img src="amazing.jpg" alt="The Amazing Spider-Man" class="comic-img">
+                    <div class="comic-info">
+                        <h3 class="comic-title">The Amazing Spider-Man #300</h3>
+                        <p class="comic-author">Por Todd McFarlane</p>
+                        <span class="comic-category">Marvel • Primera Aparición</span>
+                        <p class="comic-price">$1,250.00 USD</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+                
+                <!-- Comic 2 -->
+                <div class="comic-card">
+                    <img src="Batman.jpg" alt="Batman" class="comic-img">
+                    <div class="comic-info">
+                        <h3 class="comic-title">Batman: The Killing Joke</h3>
+                        <p class="comic-author">Por Alan Moore</p>
+                        <span class="comic-category">DC • Edición Especial</span>
+                        <p class="comic-price">$350.00 USD</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+                
+                <!-- Comic 3 -->
+                <div class="comic-card">
+                    <img src="One Piece Vol. 1.jpg" alt="One Piece" class="comic-img">
+                    <div class="comic-info">
+                        <h3 class="comic-title">One Piece Vol. 1</h3>
+                        <p class="comic-author">Por Eiichiro Oda</p>
+                        <span class="comic-category">Manga • Primera Edición</span>
+                        <p class="comic-price">$180.00 USD</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+                
+                <!-- Comic 4 -->
+                <div class="comic-card">
+                    <img src="x-men.jpg" alt="X-Men" class="comic-img">
+                    <div class="comic-info">
+                        <h3 class="comic-title">X-Men #1 (1991)</h3>
+                        <p class="comic-author">Por Jim Lee</p>
+                        <span class="comic-category">Marvel • Portada Especial</span>
+                        <p class="comic-price">$420.00 USD</p>
+                        <button class="btn-small">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE MISIÓN, VISIÓN Y VALORES -->
+    <section class="section" id="mision-vision-valores" style="background-color: #0f0f23;">
+        <div class="container">
+            <h2 class="section-title">Nuestra Filosofía</h2>
+            
+            <div class="mv-v-grid">
+                <!-- Misión -->
+                <div class="mv-v-card mision-card">
+                    <div class="mv-v-icon mision-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="mv-v-title">Misión</h3>
+                    <div class="mv-v-text">
+                        <p>Conectar a coleccionistas y amantes de los cómics con las obras que buscan, ofreciendo un mercado seguro, confiable y especializado donde cada historieta encuentre su dueño ideal. Nos dedicamos a preservar y difundir la cultura del cómic a través de la compra, venta y trueque de ejemplares, garantizando autenticidad, calidad y satisfacción en cada transacción.</p>
+                    </div>
+                </div>
+                
+                <!-- Visión -->
+                <div class="mv-v-card vision-card">
+                    <div class="mv-v-icon vision-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="mv-v-title">Visión</h3>
+                    <div class="mv-v-text">
+                        <p>Ser la plataforma líder en Latinoamérica para la compra, venta y valoración de cómics y manga, reconocida por nuestra expertise, integridad y pasión por el medio. Aspiramos a construir una comunidad global de coleccionistas que preserve el legado de la historieta para futuras generaciones, innovando constantemente en nuestra propuesta de valor y servicios especializados.</p>
+                    </div>
+                </div>
+                
+                <!-- Valores -->
+                <div class="mv-v-card valores-card">
+                    <div class="mv-v-icon valores-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="mv-v-title">Valores</h3>
+                    <div class="mv-v-text">
+                        <ul class="valores-list">
+                            <li><strong>Pasión por el Cómic:</strong> Amamos y respetamos cada historieta como una obra de arte y parte de la cultura popular.</li>
+                            <li><strong>Integridad:</strong> Garantizamos autenticidad y transparencia en cada transacción y valuación.</li>
+                            <li><strong>Comunidad:</strong> Fomentamos conexiones significativas entre coleccionistas y aficionados.</li>
+                            <li><strong>Excelencia:</strong> Ofrecemos servicio especializado y atención personalizada a cada cliente.</li>
+                            <li><strong>Preservación:</strong> Nos comprometemos con la conservación del patrimonio cultural que representan los cómics.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección "Sobre Nosotros" adicional -->
+            <div class="about">
+                <div class="about-content">
+                    <div class="about-text">
+                        
+                  
+ 
+                    </div>
+                                                              
+                   <br>
+                   <br> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Mega-Comics</h3>
+                    <p>Tu destino confiable para comprar, vender y valorar cómics y manga. Conectamos coleccionistas desde 2023.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+
+
+                </div>
+                
+               
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Cd. Margaritas M1 L1 barrio San/ Pedro, Chimalhuacán. </p>                    </p>
+                    <p><i class="fas fa-phone"></i> +52 5542442541</p>
+                    <p><i class="fas fa-envelope"></i> megacpmics@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lunes a Viernes: 10am - 7pm</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Mega-Comics. Todos los derechos reservados. | </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript simple para mejorar la interactividad
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Efecto hover mejorado para tarjetas de cómics
+            const comicCards = document.querySelectorAll('.comic-card');
+            comicCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Botones de "Ver Detalles"
+            document.querySelectorAll('.btn-small').forEach(button => {
+                button.addEventListener('click', function() {
+                    const comicTitle = this.closest('.comic-card').querySelector('.comic-title').textContent;
+                    alert(`Has seleccionado: ${comicTitle}\n\nPróximamente podrás ver todos los detalles de este cómic.`);
+                });
+            });
+            
+            // Menú móvil
+            const menuCheckbox = document.getElementById('menu');
+            const menuItems = document.querySelectorAll('.navbar ul li a');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if(window.innerWidth <= 768) {
+                        menuCheckbox.checked = false;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
